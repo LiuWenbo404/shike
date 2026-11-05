@@ -21,3 +21,7 @@ mybatis-plus:
 logging:
   level:
     com.liuwenbo: debug
+
+jwt:
+  key: abcdefghabcdefghabcdefghabcdefgh
+  expire_hours: 20
