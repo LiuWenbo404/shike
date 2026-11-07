@@ -2,17 +2,11 @@ package io.liuwenbo.dto;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class OrderDTO {
-    private Long id;
-    private Long userId;
-    private Long stallId;
-    private Long slotId;
-    private String pickupCode;
-    private String status;
-    private BigDecimal amount;
-    private LocalDateTime expireTime;
+    private Long stallId;   // 档口id
+    private Long slotId;    // 时段id
+    private List<OrderItemDTO> orderItems; // 下单菜品
 }

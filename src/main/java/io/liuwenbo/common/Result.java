@@ -21,10 +21,10 @@ public class Result<T> {
         return ok;
     }
 
-    public static <T> Result<T> fail(String massage){
+    public static <T> Result<T> fail(String message){
         return new Result<T>(){{
             setCode(500);
-            setMsg(massage);
+            setMsg(message);
         }};
     }
 }

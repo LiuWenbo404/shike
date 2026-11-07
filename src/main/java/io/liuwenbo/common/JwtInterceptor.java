@@ -36,7 +36,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             response.setStatus(401);
             return false;
         }
-
-
+    }
+    @Override
+    public void afterCompletion(HttpServletRequest req, HttpServletResponse resp,
+                                Object handler, Exception ex) {
+        BaseContext.removeUserId();
     }
 }

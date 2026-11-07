@@ -29,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .eq(User::getPassword, password)
                 .one();
         if(user == null){
-            throw new BizException(){{setMsg("用户名或密码错误！");}};
+            throw new BizException("用户名或密码错误！");
         }
 
         Long userId = user.getId();

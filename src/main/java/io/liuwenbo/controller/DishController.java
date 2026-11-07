@@ -30,7 +30,7 @@ public class DishController {
 
     @Operation(summary = "菜品详情")
     @GetMapping("/{id}")
-    private Result<Dish> info(@PathVariable Long id){
+    public Result<Dish> info(@PathVariable Long id){
         Dish dish = dishService.getById(id);
         return Result.ok(dish);
     }

@@ -21,6 +21,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     public List<Dish> listByStallId(Long stallId) {
         return lambdaQuery()
                 .eq(Dish::getStallId, stallId)
+                .eq(Dish::getStatus,1)
                 .list();
     }
 }

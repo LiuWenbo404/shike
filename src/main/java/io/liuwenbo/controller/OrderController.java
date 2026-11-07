@@ -1,12 +1,9 @@
 package io.liuwenbo.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.liuwenbo.common.BaseContext;
 import io.liuwenbo.common.Result;
 import io.liuwenbo.dto.OrderDTO;
-import io.liuwenbo.entity.Dish;
 import io.liuwenbo.entity.Orders;
-import io.liuwenbo.service.DishService;
 import io.liuwenbo.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,9 +24,9 @@ public class OrderController {
 
     @Operation(summary = "下单接口")
     @PostMapping
-    public Result order(@RequestBody OrderDTO orderDTO){
-        orderService.insert(orderDTO);
-        return Result.ok();
+    public Result<Orders> order(@RequestBody OrderDTO orderDTO){
+        Orders orders = orderService.insert(orderDTO);
+        return Result.ok(orders);
     }
 
     @Operation(summary = "查询当前用户订单")
