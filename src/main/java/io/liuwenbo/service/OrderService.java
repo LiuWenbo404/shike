@@ -2,6 +2,7 @@ package io.liuwenbo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.liuwenbo.dto.OrderDTO;
+import io.liuwenbo.dto.OrderQueryDTO;
 import io.liuwenbo.entity.Orders;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
 public interface OrderService extends IService<Orders> {
     Orders insert(OrderDTO orderDTO);
 
-    List<Orders> list(Long userId);
+    List<Orders> list(OrderQueryDTO orderQueryDTO);
 }

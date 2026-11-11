@@ -22,8 +22,12 @@ public class Result<T> {
     }
 
     public static <T> Result<T> fail(String message){
+        return fail(500, message);
+    }
+
+    public static <T> Result<T> fail(int code, String message){
         return new Result<T>(){{
-            setCode(500);
+            setCode(code);
             setMsg(message);
         }};
     }

@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @TableName("time_slot")
@@ -15,7 +16,8 @@ public class TimeSlot {
     private Long id;
     private Long stallId;
     private LocalDate slotDate;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Integer capacity;
+    private Integer totalCapacity;
 }

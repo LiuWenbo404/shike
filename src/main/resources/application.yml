@@ -20,8 +20,13 @@ mybatis-plus:
 
 logging:
   level:
-    com.liuwenbo: debug
+    io.liuwenbo: debug
 
 jwt:
   key: abcdefghabcdefghabcdefghabcdefgh
   expire_hours: 20
+
+shike:
+  slot:
+    # 压测对比用：false 时跳过 Redis，全部走 DB 条件更新
+    redis-enabled: true

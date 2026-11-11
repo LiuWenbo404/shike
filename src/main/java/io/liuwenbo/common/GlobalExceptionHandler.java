@@ -11,7 +11,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BizException.class)
     public Result<Void> handleBiz(BizException e) {
-        return Result.fail(e.getMsg());
+        // 业务规则拒绝（名额已满、库存不足）不是服务端故障，用 400 和真正的异常区分
+        return Result.fail(400, e.getMsg());
     }
 
     @ExceptionHandler(Exception.class)

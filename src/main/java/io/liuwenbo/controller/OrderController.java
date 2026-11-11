@@ -3,6 +3,7 @@ package io.liuwenbo.controller;
 import io.liuwenbo.common.BaseContext;
 import io.liuwenbo.common.Result;
 import io.liuwenbo.dto.OrderDTO;
+import io.liuwenbo.dto.OrderQueryDTO;
 import io.liuwenbo.entity.Orders;
 import io.liuwenbo.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,10 +32,9 @@ public class OrderController {
 
     @Operation(summary = "查询当前用户订单")
     @GetMapping("/list")
-    public Result<List<Orders>> list(){
+    public Result<List<Orders>> list(OrderQueryDTO orderQueryDTO){
         log.info("查询当前用户订单");
-        Long userId = BaseContext.getUserId();
-        List<Orders> list = orderService.list(userId);
+        List<Orders> list = orderService.list(orderQueryDTO);
         return Result.ok(list);
     }
 }
