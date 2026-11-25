@@ -1,6 +1,7 @@
 package io.liuwenbo.controller;
 
 import io.liuwenbo.common.BaseContext;
+import io.liuwenbo.common.BizException;
 import io.liuwenbo.common.Result;
 import io.liuwenbo.dto.UserLoginDTO;
 import io.liuwenbo.entity.User;
@@ -44,6 +45,9 @@ public class UserController {
     @GetMapping("/info")
     public Result<User> me(){
         User user = userService.getById(BaseContext.getUserId());
+        if (user == null) {
+            throw new BizException("用户不存在");
+        }
         user.setPassword("");
         return Result.ok(user);
     }

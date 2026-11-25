@@ -71,15 +71,15 @@ CREATE TABLE orders (
                         stall_id    BIGINT        NOT NULL                COMMENT '档口id',
                         slot_id     BIGINT        NOT NULL                COMMENT '取餐时段id',
                         pickup_code VARCHAR(8)    NOT NULL                COMMENT '取餐码',
-                        status      TINYINT       NOT NULL DEFAULT 0      COMMENT '状态：0 待取，1 已取，2 已取消',
+                        status      TINYINT       NOT NULL DEFAULT 0      COMMENT '状态：0 待取，1 已取，2 已取消（含超时）',
                         amount      DECIMAL(10,2) NOT NULL                COMMENT '订单金额',
                         create_time DATETIME      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                         expire_time DATETIME      NOT NULL                COMMENT '取餐截止时间',
                         PRIMARY KEY (id),
                         UNIQUE KEY uk_order_no (order_no),
-                        UNIQUE KEY uk_pickup   (stall_id, pickup_code, create_time),
                         KEY idx_user          (user_id),
-                        KEY idx_status_expire (status, expire_time)
+                        KEY idx_status_expire (status, expire_time),
+                        KEY idx_stall_code    (stall_id, pickup_code, status)
 ) COMMENT ='订单';
 
 -- 订单明细

@@ -25,11 +25,11 @@ public class JwtInterceptor implements HandlerInterceptor {
             response.getWriter().write("no token");
             return false;
         }
-        log.info("开始jwt令牌校验：{}",token);
+        log.debug("开始 JWT 校验");
         try {
             Long userId = jwtUtil.parseToken(token.substring(7));// 裁剪开头的 Bearer
             BaseContext.setUserId(userId); // 保存到threadlocal
-            log.info("当前用户id:{}",BaseContext.getUserId());
+            log.debug("当前用户id:{}", userId);
             return true;
         } catch (Exception e)
         {

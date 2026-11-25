@@ -1,8 +1,6 @@
 package io.liuwenbo.service.impl;
 
-import ch.qos.logback.core.util.MD5Util;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.liuwenbo.common.BaseContext;
 import io.liuwenbo.common.BizException;
 import io.liuwenbo.entity.User;
 import io.liuwenbo.mapper.UserMapper;
@@ -12,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -23,19 +20,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public String login(String phone, String password) {
+        if (phone == null || phone.isBlank() || password == null || password.isBlank()) {
+            throw new BizException("手机号和密码不能为空");
+        }
         // 密码加密后比对
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        password = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
         User user = lambdaQuery().eq(User::getPhone, phone)
                 .eq(User::getPassword, password)
                 .one();
-        if(user == null){
+        if (user == null) {
             throw new BizException("用户名或密码错误！");
         }
 
-        Long userId = user.getId();
-        BaseContext.setUserId(userId);
-
-        String token = jwtUtil.generateToken(userId);
-        return token;
+        // 登录接口不走 JWT 拦截器，这里不要写 BaseContext：
+        // 请求结束后没有 afterCompletion 负责清理，会污染线程池里的下一个请求。
+        return jwtUtil.generateToken(user.getId());
     }
 }

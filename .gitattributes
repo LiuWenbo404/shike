@@ -1,0 +1,9 @@
+# 统一换行符，避免 Windows 上整个仓库反复出现全文件 diff
+* text=auto
+
+*.java   text eol=crlf
+*.xml    text eol=crlf
+*.yml    text eol=lf
+*.sql    text eol=lf
+*.md     text eol=lf
+*.ps1    text eol=crlf

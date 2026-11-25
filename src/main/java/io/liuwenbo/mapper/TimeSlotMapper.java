@@ -15,4 +15,10 @@ public interface TimeSlotMapper extends BaseMapper<TimeSlot > {
      */
     @Update("UPDATE time_slot SET capacity = capacity - 1 WHERE id = #{id} AND capacity >= 1")
     int decrCapacity(@Param("id") Long id);
+
+    /**
+     * 取消 / 超时释放名额。加上 capacity < total_capacity 防止异常情况下把余量加超。
+     */
+    @Update("UPDATE time_slot SET capacity = capacity + 1 WHERE id = #{id} AND capacity < total_capacity")
+    int incrCapacity(@Param("id") Long id);
 }

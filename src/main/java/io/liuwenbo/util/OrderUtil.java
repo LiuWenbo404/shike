@@ -41,7 +41,8 @@ public class OrderUtil {
         try {
             Long seq = stringRedisTemplate.opsForValue().increment(seqKey);
             stringRedisTemplate.expire(seqKey, Duration.ofDays(1));
-            return prefix + String.format("%03d", seq % 1000);
+            // 不再对 1000 取模：宁可位数变长，也不要在同一天里出现重号
+            return prefix + String.format("%03d", seq);
         } catch (Exception e) {
             log.warn("Redis 取餐码生成失败，使用随机码兜底 stallId={}", stallId, e);
             return prefix + String.format("%05d", ThreadLocalRandom.current().nextInt(100000));

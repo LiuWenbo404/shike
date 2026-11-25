@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DishService extends IService<Dish> {
     List<Dish> listByStallId(Long stallId);
+
+    void restoreByOrder(Long orderId);
 }
